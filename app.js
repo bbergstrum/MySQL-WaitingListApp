@@ -16,17 +16,17 @@ var connection = mysql.createConnection({
 });
 
 app.get("/", function(req, res){
-    var q = 'SELECT COUNT(*) AS count FROM users';
+    var q = 'SELECT COUNT(*) AS count FROM users'; //count users in db
     connection.query(q, function(error, results){
        if(error) throw error;
-       var count = results[0].count;
-       res.render('landing', {count: count});
+       var count = results[0].count; // store count in variable
+       res.render('landing', {count: count}); //render landing with count data
     });
 });
 
 app.post('/register', function(req,res){
-        var email = {email: req.body.email};
-         connection.query('INSERT INTO users SET ?', email, function(err, result) {
+        var email = {email: req.body.email}; // save form submission data to variable
+         connection.query('INSERT INTO users SET ?', email, function(err, result) { //query & check db then insert new data
          console.log(err);
          console.log(result);
          res.redirect("/");
