@@ -9,10 +9,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public/stylesheets"));
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',  //root username (leave as root)
-  database : 'Waiting_List',   
-  password : process.env.MYSQL_PW   //root user's password
+  host     : process.env.RDS_ENDPOINT,
+  user     : process.env.MYSQL_USER,
+  database : process.env.MYSQL_DB,
+  password : process.env.MYSQL_PW
 });
 
 app.get("/", function(req, res){
@@ -32,9 +32,6 @@ app.post('/register', function(req,res){
          res.redirect("/");
      });
 });
-
-
-
 
 app.listen(process.env.PORT, process.env.IP, function(req, res){
     console.log("Waiting List Started...")

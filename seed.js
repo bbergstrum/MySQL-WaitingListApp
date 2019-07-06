@@ -3,12 +3,12 @@ var mysql = require('mysql');
 var dotenv = require('dotenv').config();
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',  //root username (leave as root)
-  database : 'Waiting_List',   
-  password : process.env.MYSQL_PW   //root user's password
+  host     : process.env.RDS_ENDPOINT,
+  user     : process.env.MYSQL_USER,
+  database : process.env.MYSQL_DB,
+  password : process.env.MYSQL_PW
 });
-  
+
 var data = [];
 
 for(var i = 0; i < 1427; i++){
@@ -25,14 +25,4 @@ connection.query(queryINSERT, [data], function(error, result) {
   console.log(result);
 });
 
-
 connection.end();
-
-
-
-
-
-
-
-
-
